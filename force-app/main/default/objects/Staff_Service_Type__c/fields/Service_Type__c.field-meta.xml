@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Service_Type__c</fullName>
+    <label>Service Type</label>
+    <type>Lookup</type>
+    <description>Service type the staff member is qualified for</description>
+    <required>true</required>
+    <externalId>false</externalId>
+    <unique>false</unique>
+    <referenceTo>Service_Type__c</referenceTo>
+    <relationshipName>Staff_Service_Types</relationshipName>
+    <relationshipLabel>Staff Service Types</relationshipLabel>
+    <deleteConstraint>Restrict</deleteConstraint>
+</CustomField>

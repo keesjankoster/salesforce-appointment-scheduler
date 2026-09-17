@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Service_Type__c</fullName>
+    <label>Service Type</label>
+    <type>Lookup</type>
+    <description>The service type booked</description>
+    <required>true</required>
+    <externalId>false</externalId>
+    <unique>false</unique>
+    <referenceTo>Service_Type__c</referenceTo>
+    <relationshipName>Appointments</relationshipName>
+    <relationshipLabel>Appointments</relationshipLabel>
+    <deleteConstraint>Restrict</deleteConstraint>
+</CustomField>

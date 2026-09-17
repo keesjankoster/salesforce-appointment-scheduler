@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Customer__c</fullName>
+    <label>Customer</label>
+    <type>Lookup</type>
+    <description>The customer who booked the appointment</description>
+    <required>true</required>
+    <externalId>false</externalId>
+    <unique>false</unique>
+    <referenceTo>Contact</referenceTo>
+    <relationshipName>Appointments_Customer</relationshipName>
+    <relationshipLabel>Appointments (Customer)</relationshipLabel>
+    <deleteConstraint>Restrict</deleteConstraint>
+</CustomField>
