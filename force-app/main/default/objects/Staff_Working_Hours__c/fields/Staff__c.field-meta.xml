@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Staff__c</fullName>
+    <label>Staff</label>
+    <type>Lookup</type>
+    <description>Staff member for these working hours</description>
+    <required>true</required>
+    <externalId>false</externalId>
+    <unique>false</unique>
+    <referenceTo>Contact</referenceTo>
+    <relationshipName>Staff_Working_Hours</relationshipName>
+    <relationshipLabel>Staff Working Hours</relationshipLabel>
+    <deleteConstraint>Restrict</deleteConstraint>
+</CustomField>

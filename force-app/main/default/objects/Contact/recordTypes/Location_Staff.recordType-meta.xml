@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Location_Staff</fullName>
+    <active>true</active>
+    <description>Staff member associated with a service location</description>
+    <label>Location Staff</label>
+</RecordType>

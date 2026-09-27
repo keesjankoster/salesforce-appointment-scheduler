@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Staff__c</fullName>
+    <label>Staff</label>
+    <type>Lookup</type>
+    <description>Staff member qualified for this service</description>
+    <required>true</required>
+    <externalId>false</externalId>
+    <unique>false</unique>
+    <referenceTo>Contact</referenceTo>
+    <relationshipName>Staff_Service_Types</relationshipName>
+    <relationshipLabel>Staff Service Types</relationshipLabel>
+    <deleteConstraint>Restrict</deleteConstraint>
+</CustomField>
