@@ -6,7 +6,7 @@ export default class BookingConfirmationStep extends LightningElement {
     @api customer;
     @api service;
     @api location;
-    @api slot;
+    @api selectedSlot;
     @api notes;
 
     @track isBooking = false;
@@ -25,9 +25,9 @@ export default class BookingConfirmationStep extends LightningElement {
     }
 
     get formattedStartTime() {
-        if (!this.slot?.startTime) return '';
+        if (!this.selectedSlot?.startTime) return '';
         try {
-            const dt = new Date(this.slot.startTime);
+            const dt = new Date(this.selectedSlot.startTime);
             return dt.toLocaleDateString('en-GB', {
                 weekday: 'long',
                 year: 'numeric',
@@ -35,7 +35,7 @@ export default class BookingConfirmationStep extends LightningElement {
                 day: 'numeric'
             });
         } catch {
-            return this.slot.startTime;
+            return this.selectedSlot.startTime;
         }
     }
 
@@ -49,10 +49,10 @@ export default class BookingConfirmationStep extends LightningElement {
             const apt = await bookAppointment({
                 customerId: this.customer.Id,
                 locationId: this.location.locationId,
-                staffId: this.slot.staffId,
+                staffId: this.selectedSlot.staffId,
                 serviceTypeId: this.service.Id,
-                startTime: this.slot.startTime,
-                endTime: this.slot.endTime,
+                startTime: this.selectedSlot.startTime,
+                endTime: this.selectedSlot.endTime,
                 notes: this.notes
             });
 
