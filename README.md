@@ -126,12 +126,12 @@ Standardized test factories implementing the **In-Memory (`build`) vs. Database 
 
 ### 4. Scratch Org Demo Seed Fixtures (`scripts/apex/` & `data/`)
 * **[`scripts/apex/seed.apex`](scripts/apex/seed.apex)**: Executable anonymous Apex script planting:
-  * 3 Central London branches (Central London, West End, Kensington) with real UK postcodes and coordinates.
-  * 3 qualified staff members linked to branches.
-  * 2 customers with address data.
-  * 3 service types (30 min, 60 min, 120 min).
-  * Staff qualifications and full Mon–Fri 09:00–17:00 schedules.
-  * An active starter appointment for immediate testing.
+  * 4 Nationwide branches across the UK (London, Birmingham, Manchester, Leeds) with real UK postal codes and native compound geocodes.
+  * 8 Location staff members with a realistic mix of full-time and part-time schedules (morning, afternoon, alternate day shifts).
+  * 4 Regional customers situated near each hub.
+  * 3 Service catalog types (30 min, 60 min, 120 min).
+  * Staff service qualifications and working hour shifts.
+  * Regional starter appointments in London and Manchester for immediate testing.
 * **[`data/data-plan.json`](data/data-plan.json)**: JSON tree data plans for automated org data seeding.
 
 ---
