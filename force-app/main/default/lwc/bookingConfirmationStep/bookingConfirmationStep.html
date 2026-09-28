@@ -26,13 +26,13 @@
                                 <div class="slds-text-title_bold slds-m-bottom_xx-small">📍 Branch Location & Specialist</div>
                                 <div>{location.locationName}</div>
                                 <div class="slds-text-body_small slds-text-color_weak">{location.street}, {location.city} ({location.postalCode})</div>
-                                <div class="slds-text-body_small font-semibold slds-m-top_xx-small">Specialist: {slot.staffName}</div>
+                                <div class="slds-text-body_small font-semibold slds-m-top_xx-small">Specialist: {selectedSlot.staffName}</div>
                             </div>
 
                             <!-- Date & Time -->
                             <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-m-bottom_small">
                                 <div class="slds-text-title_bold slds-m-bottom_xx-small">📅 Date & Time Window</div>
-                                <div class="font-semibold slds-text-color_default">{slot.timeDisplay}</div>
+                                <div class="font-semibold slds-text-color_default">{selectedSlot.timeDisplay}</div>
                                 <div class="slds-text-body_small slds-text-color_weak">{formattedStartTime}</div>
                             </div>
 
@@ -87,13 +87,13 @@
                     <p><strong>Service:</strong> {service.Name} ({service.Duration_Minutes__c} mins)</p>
                     <p><strong>Customer:</strong> {customer.FirstName} {customer.LastName}</p>
                     <p><strong>Location:</strong> {location.locationName} &bull; {location.city}</p>
-                    <p><strong>Technician:</strong> {slot.staffName}</p>
-                    <p><strong>Time:</strong> {slot.timeDisplay} ({formattedStartTime})</p>
+                    <p><strong>Technician:</strong> {selectedSlot.staffName}</p>
+                    <p><strong>Time:</strong> {selectedSlot.timeDisplay} ({formattedStartTime})</p>
                 </div>
 
                 <div class="slds-box slds-theme_shade slds-m-bottom_large">
                     <p class="slds-text-body_small slds-text-color_weak">
-                        📩 Automated confirmation emails have been dispatched to <strong>{customer.Email}</strong> and <strong>{slot.staffName}</strong>.<br/>
+                        📩 Automated confirmation emails have been dispatched to <strong>{customer.Email}</strong> and <strong>{selectedSlot.staffName}</strong>.<br/>
                         📋 A follow-up standard <strong>Task</strong> has been automatically assigned to the technician's activity queue.
                     </p>
                 </div>
