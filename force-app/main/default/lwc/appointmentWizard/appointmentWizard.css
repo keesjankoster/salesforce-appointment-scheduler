@@ -1,0 +1,18 @@
+.wizard-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.context-bar {
+    background-color: #f3f7fd;
+    border-left: 4px solid #0176d3;
+    border-radius: 4px;
+}
+
+.step-content {
+    min-height: 480px;
+}
+
+.font-bold {
+    font-weight: 700;
+}

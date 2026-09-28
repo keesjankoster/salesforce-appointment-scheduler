@@ -1,0 +1,110 @@
+<template>
+    <div class="slds-p-around_medium">
+        <!-- PRE-BOOKING REVIEW STATE -->
+        <template lwc:if={isReviewState}>
+            <lightning-card title="Review & Confirm Appointment" icon-name="standard:service_appointment">
+                <div class="slds-p-horizontal_medium">
+                    <div class="slds-box slds-theme_shade slds-m-bottom_medium">
+                        <div class="slds-grid slds-gutters slds-wrap">
+                            <!-- Customer Details -->
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-m-bottom_small">
+                                <div class="slds-text-title_bold slds-m-bottom_xx-small">👤 Customer</div>
+                                <div>{customer.FirstName} {customer.LastName}</div>
+                                <div class="slds-text-body_small slds-text-color_weak">{customer.Email} &bull; {customer.Phone}</div>
+                                <div class="slds-text-body_small slds-text-color_weak">{customer.MailingStreet}, {customer.MailingCity} ({customer.MailingPostalCode})</div>
+                            </div>
+
+                            <!-- Service Details -->
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-m-bottom_small">
+                                <div class="slds-text-title_bold slds-m-bottom_xx-small">🔧 Service</div>
+                                <div>{service.Name}</div>
+                                <div class="slds-text-body_small slds-text-color_weak">Duration: {service.Duration_Minutes__c} minutes</div>
+                            </div>
+
+                            <!-- Branch & Technician -->
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-m-bottom_small">
+                                <div class="slds-text-title_bold slds-m-bottom_xx-small">📍 Branch Location & Specialist</div>
+                                <div>{location.locationName}</div>
+                                <div class="slds-text-body_small slds-text-color_weak">{location.street}, {location.city} ({location.postalCode})</div>
+                                <div class="slds-text-body_small font-semibold slds-m-top_xx-small">Specialist: {slot.staffName}</div>
+                            </div>
+
+                            <!-- Date & Time -->
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-m-bottom_small">
+                                <div class="slds-text-title_bold slds-m-bottom_xx-small">📅 Date & Time Window</div>
+                                <div class="font-semibold slds-text-color_default">{slot.timeDisplay}</div>
+                                <div class="slds-text-body_small slds-text-color_weak">{formattedStartTime}</div>
+                            </div>
+
+                            <!-- Notes -->
+                            <template lwc:if={hasNotes}>
+                                <div class="slds-col slds-size_1-of-1 slds-m-top_small">
+                                    <div class="slds-text-title_bold slds-m-bottom_xx-small">📝 Operator Notes</div>
+                                    <div class="slds-text-body_small slds-box slds-box_x-small slds-theme_default">{notes}</div>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+
+                    <!-- Spinner -->
+                    <template lwc:if={isBooking}>
+                        <div class="slds-is-relative slds-p-around_large">
+                            <lightning-spinner alternative-text="Confirming booking" size="medium"></lightning-spinner>
+                        </div>
+                    </template>
+
+                    <!-- Action Buttons -->
+                    <div class="slds-grid slds-grid_align-spread slds-m-top_medium">
+                        <lightning-button
+                            label="Back"
+                            icon-name="utility:back"
+                            onclick={handleBack}
+                            disabled={isBooking}>
+                        </lightning-button>
+
+                        <lightning-button
+                            variant="brand"
+                            label="Confirm & Book Appointment"
+                            icon-name="utility:check"
+                            onclick={handleConfirmBooking}
+                            disabled={isBooking}>
+                        </lightning-button>
+                    </div>
+                </div>
+            </lightning-card>
+        </template>
+
+        <!-- POST-BOOKING SUCCESS STATE -->
+        <template lwc:if={isSuccessState}>
+            <div class="slds-box success-card slds-p-around_large slds-text-align_center">
+                <div class="success-icon slds-m-bottom_small">✅</div>
+                <h2 class="slds-text-heading_large slds-m-bottom_xx-small font-bold">Appointment Confirmed!</h2>
+                <div class="slds-text-heading_medium slds-m-bottom_medium font-bold slds-text-color_success">
+                    Reference: {bookedAppointment.Name}
+                </div>
+
+                <div class="slds-box slds-theme_default slds-p-around_medium slds-m-bottom_large text-left confirmation-details">
+                    <p><strong>Service:</strong> {service.Name} ({service.Duration_Minutes__c} mins)</p>
+                    <p><strong>Customer:</strong> {customer.FirstName} {customer.LastName}</p>
+                    <p><strong>Location:</strong> {location.locationName} &bull; {location.city}</p>
+                    <p><strong>Technician:</strong> {slot.staffName}</p>
+                    <p><strong>Time:</strong> {slot.timeDisplay} ({formattedStartTime})</p>
+                </div>
+
+                <div class="slds-box slds-theme_shade slds-m-bottom_large">
+                    <p class="slds-text-body_small slds-text-color_weak">
+                        📩 Automated confirmation emails have been dispatched to <strong>{customer.Email}</strong> and <strong>{slot.staffName}</strong>.<br/>
+                        📋 A follow-up standard <strong>Task</strong> has been automatically assigned to the technician's activity queue.
+                    </p>
+                </div>
+
+                <lightning-button
+                    variant="brand"
+                    label="Book Another Appointment"
+                    icon-name="utility:new"
+                    onclick={handleReset}>
+                </lightning-button>
+            </div>
+        </template>
+    </div>
+</template>

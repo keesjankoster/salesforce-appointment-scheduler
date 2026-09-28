@@ -19,6 +19,19 @@ public with sharing class AvailabilityService {
     }
 
     /**
+     * Retrieves all active service types for selection in the booking wizard.
+     */
+    @AuraEnabled(cacheable=true)
+    public static List<Service_Type__c> getActiveServiceTypes() {
+        return [
+            SELECT Id, Name, Duration_Minutes__c, Description__c
+            FROM Service_Type__c
+            WHERE Active__c = true
+            ORDER BY Duration_Minutes__c ASC, Name ASC
+        ];
+    }
+
+    /**
      * Calculates available appointment time slots at a branch location for a given service and date.
      */
     @AuraEnabled(cacheable=true)

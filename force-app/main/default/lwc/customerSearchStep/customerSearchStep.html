@@ -1,0 +1,126 @@
+<template>
+    <div class="slds-p-around_medium">
+        <!-- Search Card -->
+        <lightning-card title="Search Existing Customer" icon-name="standard:contact">
+            <div class="slds-p-horizontal_medium slds-m-bottom_medium">
+                <div class="slds-grid slds-gutters slds-wrap">
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12">
+                        <lightning-input
+                            type="search"
+                            label="Name, Email, or Phone"
+                            placeholder="e.g. Arthur Dent, 07700..."
+                            value={searchTerm}
+                            onchange={handleSearchTermChange}>
+                        </lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12">
+                        <lightning-input
+                            type="search"
+                            label="Postal Code"
+                            placeholder="e.g. EC1A 1BB"
+                            value={postalCode}
+                            onchange={handlePostalCodeChange}>
+                        </lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-12 slds-align-bottom slds-m-top_x-small">
+                        <lightning-button
+                            variant="brand"
+                            label="Search"
+                            icon-name="utility:search"
+                            onclick={handleSearch}
+                            class="slds-m-top_medium">
+                        </lightning-button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Loading Spinner -->
+            <template lwc:if={isLoading}>
+                <div class="slds-is-relative slds-m-vertical_large">
+                    <lightning-spinner alternative-text="Searching customers" size="small"></lightning-spinner>
+                </div>
+            </template>
+
+            <!-- Search Results -->
+            <template lwc:if={hasResults}>
+                <div class="slds-p-horizontal_medium slds-m-bottom_medium">
+                    <h3 class="slds-text-heading_small slds-m-bottom_small">Matching Customers ({searchResults.length})</h3>
+                    <div class="results-grid">
+                        <template for:each={searchResults} for:item="cust">
+                            <div key={cust.Id} class="slds-box slds-box_small customer-card slds-m-bottom_small">
+                                <div class="slds-grid slds-grid_vertical-align-center slds-grid_align-spread">
+                                    <div>
+                                        <div class="slds-text-heading_small slds-text-color_default font-semibold">
+                                            {cust.FirstName} {cust.LastName}
+                                        </div>
+                                        <div class="slds-text-body_small slds-text-color_weak slds-m-top_xx-small">
+                                            <span lwc:if={cust.Email}>📧 {cust.Email} &bull; </span>
+                                            <span lwc:if={cust.Phone}>📞 {cust.Phone} &bull; </span>
+                                            <span lwc:if={cust.MailingPostalCode}>📍 {cust.MailingPostalCode}</span>
+                                        </div>
+                                    </div>
+                                    <lightning-button
+                                        label="Select"
+                                        variant="neutral"
+                                        onclick={handleSelectCustomer}
+                                        data-id={cust.Id}>
+                                    </lightning-button>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </template>
+
+            <template lwc:if={noResultsFound}>
+                <div class="slds-p-around_medium slds-text-align_center slds-text-color_weak">
+                    No existing customers match your search criteria. You can register a new customer below.
+                </div>
+            </template>
+        </lightning-card>
+
+        <!-- New Customer Form Divider -->
+        <div class="slds-text-align_center slds-m-vertical_medium">
+            <span class="slds-badge slds-theme_default">OR</span>
+        </div>
+
+        <!-- Quick Registration Card -->
+        <lightning-card title="Register New Customer" icon-name="utility:new">
+            <div class="slds-p-horizontal_medium">
+                <div class="slds-grid slds-gutters slds-wrap">
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12">
+                        <lightning-input label="First Name" value={newFirstName} onchange={handleNewFirstNameChange}></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12">
+                        <lightning-input label="Last Name" required value={newLastName} onchange={handleNewLastNameChange}></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12">
+                        <lightning-input type="email" label="Email" value={newEmail} onchange={handleNewEmailChange}></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12">
+                        <lightning-input type="tel" label="Phone" value={newPhone} onchange={handleNewPhoneChange}></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12">
+                        <lightning-input label="Street Address" value={newStreet} onchange={handleNewStreetChange}></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12">
+                        <lightning-input label="City" value={newCity} onchange={handleNewCityChange}></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12">
+                        <lightning-input label="Postal Code" value={newPostalCode} onchange={handleNewPostalCodeChange}></lightning-input>
+                    </div>
+                </div>
+
+                <div class="slds-m-top_medium slds-text-align_right">
+                    <lightning-button
+                        variant="brand"
+                        label="Register & Select"
+                        icon-name="utility:check"
+                        onclick={handleCreateCustomer}
+                        disabled={isRegisterDisabled}>
+                    </lightning-button>
+                </div>
+            </div>
+        </lightning-card>
+    </div>
+</template>
