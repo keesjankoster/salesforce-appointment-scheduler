@@ -1,0 +1,24 @@
+{
+  "records": [
+    {
+      "attributes": {
+        "type": "Contact",
+        "referenceId": "ContactRef1"
+      },
+      "FirstName": "Jane",
+      "LastName": "Doe",
+      "Email": "jane.doe@acme.com",
+      "AccountId": "@AccountRef1"
+    },
+    {
+      "attributes": {
+        "type": "Contact",
+        "referenceId": "ContactRef2"
+      },
+      "FirstName": "John",
+      "LastName": "Smith",
+      "Email": "john.smith@pinnacle.com",
+      "AccountId": "@AccountRef2"
+    }
+  ]
+}
