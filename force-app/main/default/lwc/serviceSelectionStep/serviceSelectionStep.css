@@ -1,0 +1,28 @@
+.service-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border-radius: 8px;
+    background: #ffffff;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.service-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(1, 118, 211, 0.15);
+    border-color: #0176d3;
+}
+
+.duration-badge {
+    background-color: #0176d3;
+    font-weight: 600;
+}
+
+.description-text {
+    min-height: 48px;
+}
+
+.font-semibold {
+    font-weight: 600;
+}

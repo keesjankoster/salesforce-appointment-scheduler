@@ -1,0 +1,93 @@
+<template>
+    <div class="wizard-wrapper">
+        <lightning-card icon-name="custom:custom25">
+            <div slot="title" class="slds-grid slds-grid_vertical-align-center">
+                <span class="slds-text-heading_medium font-bold">Salesforce Appointment Scheduler</span>
+            </div>
+
+            <div slot="actions">
+                <template lwc:if={canReset}>
+                    <lightning-button
+                        label="Start Over"
+                        icon-name="utility:undo"
+                        onclick={handleResetWizard}>
+                    </lightning-button>
+                </template>
+            </div>
+
+            <!-- Top Progress Indicator -->
+            <div class="slds-p-horizontal_large slds-p-top_small slds-p-bottom_medium">
+                <lightning-progress-indicator current-step={currentStep} type="path" variant="base">
+                    <lightning-progress-step label="1. Customer" value="1"></lightning-progress-step>
+                    <lightning-progress-step label="2. Service" value="2"></lightning-progress-step>
+                    <lightning-progress-step label="3. Branch & Slot" value="3"></lightning-progress-step>
+                    <lightning-progress-step label="4. Confirmation" value="4"></lightning-progress-step>
+                </lightning-progress-indicator>
+            </div>
+
+            <!-- Context Breadcrumb Bar (If Customer or Service is selected) -->
+            <template lwc:if={hasContext}>
+                <div class="slds-p-horizontal_large slds-m-bottom_small">
+                    <div class="slds-box slds-box_x-small context-bar slds-grid slds-wrap slds-grid_align-spread slds-grid_vertical-align-center">
+                        <div class="slds-grid slds-wrap slds-grid_vertical-align-center">
+                            <template lwc:if={selectedCustomer}>
+                                <span class="slds-badge slds-theme_default slds-m-right_small">
+                                    👤 {selectedCustomer.FirstName} {selectedCustomer.LastName} ({selectedCustomer.MailingPostalCode})
+                                </span>
+                            </template>
+                            <template lwc:if={selectedService}>
+                                <span class="slds-badge slds-theme_default slds-m-right_small">
+                                    🔧 {selectedService.Name} ({selectedService.Duration_Minutes__c} mins)
+                                </span>
+                            </template>
+                            <template lwc:if={selectedLocation}>
+                                <span class="slds-badge slds-theme_default slds-m-right_small">
+                                    📍 {selectedLocation.locationName}
+                                </span>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+            </template>
+
+            <!-- WIZARD STEP BODY -->
+            <div class="step-content">
+                <!-- STEP 1: Customer Selection / Registration -->
+                <template lwc:if={isStep1}>
+                    <c-customer-search-step
+                        oncustomerselected={handleCustomerSelected}>
+                    </c-customer-search-step>
+                </template>
+
+                <!-- STEP 2: Service Type Selection -->
+                <template lwc:if={isStep2}>
+                    <c-service-selection-step
+                        onserviceselected={handleServiceSelected}>
+                    </c-service-selection-step>
+                </template>
+
+                <!-- STEP 3: Branch Location & Slot Picker -->
+                <template lwc:if={isStep3}>
+                    <c-slot-picker-step
+                        customer={selectedCustomer}
+                        service={selectedService}
+                        onslotselected={handleSlotSelected}>
+                    </c-slot-picker-step>
+                </template>
+
+                <!-- STEP 4: Review, Confirm, and Booking Reference -->
+                <template lwc:if={isStep4}>
+                    <c-booking-confirmation-step
+                        customer={selectedCustomer}
+                        service={selectedService}
+                        location={selectedLocation}
+                        slot={selectedSlot}
+                        notes={bookingNotes}
+                        onback={handleBackToStep3}
+                        onresetwizard={handleResetWizard}>
+                    </c-booking-confirmation-step>
+                </template>
+            </div>
+        </lightning-card>
+    </div>
+</template>

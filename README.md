@@ -15,7 +15,7 @@ This repository accompanies a step-by-step technical article series exploring mo
 | **[Part 3](documentation/part3.md)** | **[Standardizing Test Hygiene — In-Memory vs DML Factories with Hob](documentation/part3.md)** | Taming governor limits, in-memory (`build`) vs database (`create`) factories, and demo seeding (`hob create factory`, `hob seed init`). |
 | **[Part 4](documentation/part4.md)** | **[High-Velocity TDD — Companion Test Scaffolding with Hob](documentation/part4.md)** | Core domain services (`CustomerService`, `LocationService`, `AvailabilityService`, `AppointmentService`), concurrency row-locking, and proximity ranking (`hob create apex --with-test`). |
 | **[Part 5](documentation/part5.md)** | **[Architecture by Default — Separation of Concerns with Hob Triggers](documentation/part5.md)** | Logic-less triggers, automated standard `Task` generation, email notifications, and cancellation lifecycle (`hob create trigger`). |
-| *Part 6* | *Building Modern Lightning UIs Fast: Scaffolded LWCs with Hob* | *(Upcoming)* Multi-step booking wizard (`appointmentWizard`) and Lightning App page (`hob create lwc`). |
+| **[Part 6](documentation/part6.md)** | **[Building Modern Lightning UIs Fast — Scaffolded LWCs with Hob](documentation/part6.md)** | Multi-step booking wizard state machine (`appointmentWizard`), child component composition, and Lightning App packaging (`hob create lwc`). |
 | *Part 7* | *One Command to Rule Them All: The Complete Dev Org Setup with Hob* | *(Upcoming)* End-to-end scratch org creation, deployment, and testing (`hob scratch new`, `hob hearth`, `hob scratch purge`). |
 
 ---
@@ -149,6 +149,19 @@ Scaffolded via `hob create trigger Appointment__c` enforcing architecture by def
   * Staff service qualifications and working hour shifts.
   * Regional starter appointments in London and Manchester for immediate testing.
 * **[`data/data-plan.json`](data/data-plan.json)**: JSON tree data plans for automated org data seeding.
+
+### 7. Modern Lightning Experience & LWC Wizard (`force-app/main/default/lwc/`, `applications/`, `tabs/`)
+Scaffolded via `hob create lwc <Name>` implementing the container/subcomponent pattern:
+* **[`appointmentWizard`](force-app/main/default/lwc/appointmentWizard/)**: Master state machine coordinating the 4-step booking workflow with native `lightning-progress-indicator` and live context breadcrumb.
+* **[`customerSearchStep`](force-app/main/default/lwc/customerSearchStep/)**: Instant customer lookup (Name, Email, Phone, Postal Code) and inline new customer registration with `CustomerService`.
+* **[`serviceSelectionStep`](force-app/main/default/lwc/serviceSelectionStep/)**: Interactive service catalog cards with duration badges powered by `AvailabilityService.getActiveServiceTypes()`.
+* **[`slotPickerStep`](force-app/main/default/lwc/slotPickerStep/)**: Proximity-ordered branch discovery (`LocationService`), date selector, and live shift-aware time slot grid (`AvailabilityService.getAvailableSlots()`).
+* **[`bookingConfirmationStep`](force-app/main/default/lwc/bookingConfirmationStep/)**: Review summary card, transactional booking invocation with row locks (`AppointmentService.bookAppointment()`), and success confirmation state displaying generated `APT-XXXX` references.
+* **Custom Tabs & App**:
+  * [`Appointment_Wizard.tab-meta.xml`](force-app/main/default/tabs/Appointment_Wizard.tab-meta.xml): Lightning component tab exposing the booking wizard.
+  * [`Appointment__c.tab-meta.xml`](force-app/main/default/tabs/Appointment__c.tab-meta.xml) & [`Service_Type__c.tab-meta.xml`](force-app/main/default/tabs/Service_Type__c.tab-meta.xml): Custom object tabs for appointment tracking and service management.
+  * [`Appointment_Scheduler.app-meta.xml`](force-app/main/default/applications/Appointment_Scheduler.app-meta.xml): Standard Lightning Application uniting the wizard, appointments, services, accounts, and contacts.
+  * [`Appointment_Scheduler_Operator.permissionset-meta.xml`](force-app/main/default/permissionsets/Appointment_Scheduler_Operator.permissionset-meta.xml): Operator authorization including `applicationVisibilities` and `tabSettings`.
 
 ---
 
