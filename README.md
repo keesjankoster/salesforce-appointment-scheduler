@@ -14,7 +14,7 @@ This repository accompanies a step-by-step technical article series exploring mo
 | **[Part 2](documentation/part2.md)** | **[Instant Least-Privilege Access — Generating Permission Sets with Hob](documentation/part2.md)** | Moving beyond profiles, multi-object security scaffolding, and FLS nuances (`hob create permset`). |
 | **[Part 3](documentation/part3.md)** | **[Standardizing Test Hygiene — In-Memory vs DML Factories with Hob](documentation/part3.md)** | Taming governor limits, in-memory (`build`) vs database (`create`) factories, and demo seeding (`hob create factory`, `hob seed init`). |
 | **[Part 4](documentation/part4.md)** | **[High-Velocity TDD — Companion Test Scaffolding with Hob](documentation/part4.md)** | Core domain services (`CustomerService`, `LocationService`, `AvailabilityService`, `AppointmentService`), concurrency row-locking, and proximity ranking (`hob create apex --with-test`). |
-| *Part 5* | *Architecture by Default: Separation of Concerns with Hob Triggers* | *(Upcoming)* `AppointmentTriggerHandler`, automated email notifications, and standard `Task` generation (`hob create trigger`). |
+| **[Part 5](documentation/part5.md)** | **[Architecture by Default — Separation of Concerns with Hob Triggers](documentation/part5.md)** | Logic-less triggers, automated standard `Task` generation, email notifications, and cancellation lifecycle (`hob create trigger`). |
 | *Part 6* | *Building Modern Lightning UIs Fast: Scaffolded LWCs with Hob* | *(Upcoming)* Multi-step booking wizard (`appointmentWizard`) and Lightning App page (`hob create lwc`). |
 | *Part 7* | *One Command to Rule Them All: The Complete Dev Org Setup with Hob* | *(Upcoming)* End-to-end scratch org creation, deployment, and testing (`hob scratch new`, `hob hearth`, `hob scratch purge`). |
 
@@ -131,7 +131,16 @@ Scaffolded via `hob create apex <Name> --with-test` with companion unit test sui
 * [`AvailabilityService.cls`](force-app/main/default/classes/AvailabilityService.cls) & ([`AvailabilityServiceTest.cls`](force-app/main/default/classes/AvailabilityServiceTest.cls)) &mdash; Dynamic slot calculation factoring in full/part-time shifts and existing booking conflicts.
 * [`AppointmentService.cls`](force-app/main/default/classes/AppointmentService.cls) & ([`AppointmentServiceTest.cls`](force-app/main/default/classes/AppointmentServiceTest.cls)) &mdash; Transactional booking engine with `FOR UPDATE` row-locking, double-booking prevention, and cancellations.
 
-### 5. Scratch Org Demo Seed Fixtures (`scripts/apex/` & `data/`)
+### 5. Automation & Triggers (`force-app/main/default/triggers/` & `classes/`)
+Scaffolded via `hob create trigger Appointment__c` enforcing architecture by default:
+* [`AppointmentTrigger.trigger`](force-app/main/default/triggers/AppointmentTrigger.trigger) &mdash; Logic-less trigger delegating directly to the handler based on `System.TriggerOperation`.
+* [`AppointmentTriggerHandler.cls`](force-app/main/default/classes/AppointmentTriggerHandler.cls) & ([`AppointmentTriggerTest.cls`](force-app/main/default/classes/AppointmentTriggerTest.cls)) &mdash; Centralized automation handling:
+  * **Standard `Task` Generation**: Creates assigned `Task` records for location staff with due dates set to the appointment date.
+  * **Dual Confirmation Emails**: Generates customer and technician notifications via `Messaging.SingleEmailMessage` with governor limit safeguards.
+  * **Cancellation Lifecycle**: Automatically closes open follow-up tasks (`[CANCELLED]`) and alerts participants when an appointment is cancelled.
+  * **Integrity Guard**: Blocks deletion of completed appointments in `before delete`.
+
+### 6. Scratch Org Demo Seed Fixtures (`scripts/apex/` & `data/`)
 * **[`scripts/apex/seed.apex`](scripts/apex/seed.apex)**: Executable anonymous Apex script planting:
   * 4 Nationwide branches across the UK (London, Birmingham, Manchester, Leeds) with real UK postal codes and native compound geocodes.
   * 8 Location staff members with a realistic mix of full-time and part-time schedules (morning, afternoon, alternate day shifts).
