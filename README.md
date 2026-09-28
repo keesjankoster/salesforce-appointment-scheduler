@@ -13,7 +13,7 @@ This repository accompanies a step-by-step technical article series exploring mo
 | **[Part 1](documentation/part1.md)** | **[Eliminating Salesforce XML Fatigue — CLI Schema Scaffolding with Hob](documentation/part1.md)** | Foundational data model, native compound geolocation, and CLI schema generation (`hob create object`, `hob create field`). |
 | **[Part 2](documentation/part2.md)** | **[Instant Least-Privilege Access — Generating Permission Sets with Hob](documentation/part2.md)** | Moving beyond profiles, multi-object security scaffolding, and FLS nuances (`hob create permset`). |
 | **[Part 3](documentation/part3.md)** | **[Standardizing Test Hygiene — In-Memory vs DML Factories with Hob](documentation/part3.md)** | Taming governor limits, in-memory (`build`) vs database (`create`) factories, and demo seeding (`hob create factory`, `hob seed init`). |
-| *Part 4* | *High-Velocity TDD: Companion Test Scaffolding with Hob* | *(In Progress)* Service layer: `CustomerService`, `LocationService`, `AvailabilityService`, and `AppointmentService` (`hob create apex --with-test`). |
+| **[Part 4](documentation/part4.md)** | **[High-Velocity TDD — Companion Test Scaffolding with Hob](documentation/part4.md)** | Core domain services (`CustomerService`, `LocationService`, `AvailabilityService`, `AppointmentService`), concurrency row-locking, and proximity ranking (`hob create apex --with-test`). |
 | *Part 5* | *Architecture by Default: Separation of Concerns with Hob Triggers* | *(Upcoming)* `AppointmentTriggerHandler`, automated email notifications, and standard `Task` generation (`hob create trigger`). |
 | *Part 6* | *Building Modern Lightning UIs Fast: Scaffolded LWCs with Hob* | *(Upcoming)* Multi-step booking wizard (`appointmentWizard`) and Lightning App page (`hob create lwc`). |
 | *Part 7* | *One Command to Rule Them All: The Complete Dev Org Setup with Hob* | *(Upcoming)* End-to-end scratch org creation, deployment, and testing (`hob scratch new`, `hob hearth`, `hob scratch purge`). |
@@ -124,7 +124,14 @@ Standardized test factories implementing the **In-Memory (`build`) vs. Database 
 * [`Staff_Working_HoursDataFactory.cls`](force-app/main/default/classes/Staff_Working_HoursDataFactory.cls) &mdash; Time shifts and weekly Monday–Friday schedule helpers (`createWeeklySchedule()`).
 * [`AppointmentDataFactory.cls`](force-app/main/default/classes/AppointmentDataFactory.cls) &mdash; AutoNumber-aware appointment records with full relationship wiring.
 
-### 4. Scratch Org Demo Seed Fixtures (`scripts/apex/` & `data/`)
+### 4. Core Apex Service Layer (`force-app/main/default/classes/`)
+Scaffolded via `hob create apex <Name> --with-test` with companion unit test suites:
+* [`CustomerService.cls`](force-app/main/default/classes/CustomerService.cls) & ([`CustomerServiceTest.cls`](force-app/main/default/classes/CustomerServiceTest.cls)) &mdash; Sanitized multi-field customer search and on-the-fly registration.
+* [`LocationService.cls`](force-app/main/default/classes/LocationService.cls) & ([`LocationServiceTest.cls`](force-app/main/default/classes/LocationServiceTest.cls)) &mdash; Certified branch discovery, proximity ranking, and Haversine distance math.
+* [`AvailabilityService.cls`](force-app/main/default/classes/AvailabilityService.cls) & ([`AvailabilityServiceTest.cls`](force-app/main/default/classes/AvailabilityServiceTest.cls)) &mdash; Dynamic slot calculation factoring in full/part-time shifts and existing booking conflicts.
+* [`AppointmentService.cls`](force-app/main/default/classes/AppointmentService.cls) & ([`AppointmentServiceTest.cls`](force-app/main/default/classes/AppointmentServiceTest.cls)) &mdash; Transactional booking engine with `FOR UPDATE` row-locking, double-booking prevention, and cancellations.
+
+### 5. Scratch Org Demo Seed Fixtures (`scripts/apex/` & `data/`)
 * **[`scripts/apex/seed.apex`](scripts/apex/seed.apex)**: Executable anonymous Apex script planting:
   * 4 Nationwide branches across the UK (London, Birmingham, Manchester, Leeds) with real UK postal codes and native compound geocodes.
   * 8 Location staff members with a realistic mix of full-time and part-time schedules (morning, afternoon, alternate day shifts).
