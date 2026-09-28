@@ -145,12 +145,21 @@ hob seed init
 ```
 
 We tailored `scripts/apex/seed.apex` to plant a complete, realistic Appointment Scheduler ecosystem:
-* **3 Central London Branches**: Central London (EC2V 6DN), West End (W1D 2DZ), Kensington (SW7 2HE), complete with standard `ShippingAddress` compound geocodes for native `DISTANCE()` queries.
-* **3 Qualified Staff**: Alice, Bob, and Charlie assigned to their respective branches.
-* **Customers**: David Miller and Emma Watson with real UK postcodes.
-* **Service Catalog**: 30-min Consultation, 60-min Standard, and 120-min Comprehensive services.
-* **Staff Skills & Schedules**: Qualifications junction records and Monday–Friday working shifts.
-* **Active Appointments**: A sample upcoming booking to test conflict detection.
+* **Nationwide Branch Coverage (London, Birmingham, Manchester, Leeds)**:
+  * **London Flagship** (EC2V 6DN, Cheapside)
+  * **Birmingham Colmore** (B3 2QD, Colmore Row)
+  * **Manchester Deansgate** (M3 2BB, Deansgate)
+  * **Leeds Park Row** (LS1 5HD, Park Row)  
+  All seeded with standard `ShippingAddress` compound geocodes (`ShippingLatitude` and `ShippingLongitude`) to enable cross-country SOQL `DISTANCE()` queries.
+* **Realistic Staffing (Full-Time & Part-Time Mix)**:
+  * **Full-time specialists** across all regional hubs (Alice in London, Bob in Birmingham, Charlie in Manchester, Fiona in Leeds) covering core weekday shifts.
+  * **Part-time specialists** with realistic shift models:
+    * *Morning shifts*: David in London (Mon/Wed/Fri 09:00–13:00) and George in Leeds (Wed–Fri 08:30–13:30).
+    * *Afternoon shifts*: Liam in Manchester (Mon–Wed 12:30–17:00).
+    * *Specific working days*: Priya in Birmingham (Tue/Thu 09:00–17:00).
+* **Regional Customers**: Distributed strategically across the UK near each regional hub (London, Solihull/Birmingham, Salford/Manchester, Leeds) with genuine UK postal codes.
+* **Service Catalog & Tiered Qualifications**: 30-min Consultation, 60-min Standard Service, and 120-min Comprehensive Inspection, mapped via junction records to technician skills.
+* **Regional Starter Appointments**: Active upcoming bookings in London and Manchester to test slot conflict detection and distance matching.
 
 Whenever a developer spins up a new scratch org, running `hob seed` or executing `seed.apex` immediately turns an empty org into a fully functional demo environment.
 
