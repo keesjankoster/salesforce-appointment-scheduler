@@ -63,7 +63,7 @@ export default class SlotPickerStep extends LightningElement {
                 return {
                     ...loc,
                     staffSummary: staffNames,
-                    cardClass: 'location-card slds-box slds-m-bottom_small'
+                    cardClass: 'location-card slds-box slds-var-m-bottom_small'
                 };
             });
 
@@ -96,8 +96,8 @@ export default class SlotPickerStep extends LightningElement {
             ...l,
             cardClass:
                 l.locationId === location.locationId
-                    ? 'location-card slds-box slds-m-bottom_small selected-location'
-                    : 'location-card slds-box slds-m-bottom_small'
+                    ? 'location-card slds-box slds-var-m-bottom_small selected-location'
+                    : 'location-card slds-box slds-var-m-bottom_small'
         }));
 
         this.loadSlots();
@@ -126,7 +126,7 @@ export default class SlotPickerStep extends LightningElement {
 
             this.slots = rawSlots.map((slot) => ({
                 ...slot,
-                btnClass: 'slot-button slds-m-around_xx-small'
+                btnClass: 'slot-button slds-var-m-around_xx-small'
             }));
         } catch (error) {
             this.showToast('Error loading slots', error?.body?.message || error.message, 'error');
@@ -145,8 +145,8 @@ export default class SlotPickerStep extends LightningElement {
                 ...s,
                 btnClass:
                     s.slotKey === slotKey
-                        ? 'slot-button slds-m-around_xx-small selected-slot'
-                        : 'slot-button slds-m-around_xx-small'
+                        ? 'slot-button slds-var-m-around_xx-small selected-slot'
+                        : 'slot-button slds-var-m-around_xx-small'
             }));
         }
     }
