@@ -127,7 +127,9 @@ public with sharing class AppointmentTriggerHandler {
             tasksToInsert.add(staffTask);
 
             // 2. Prepare confirmation emails
-            String formattedTime = apt.Start_Time__c != null ? apt.Start_Time__c.format('EEEE, d MMMM yyyy at HH:mm') : 'Scheduled Time';
+            String formattedTime = apt.Start_Time__c != null
+                ? apt.Start_Time__c.format('EEEE, d MMMM yyyy') + ' at ' + apt.Start_Time__c.format('HH:mm')
+                : 'Scheduled Time';
 
             // Customer confirmation email
             if (apt.Customer__r != null && String.isNotBlank(apt.Customer__r.Email)) {
