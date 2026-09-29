@@ -32,7 +32,7 @@ public with sharing class CustomerService {
         }
 
         if (String.isNotBlank(postalCode)) {
-            String sanitizedPostal = '%' + String.escapeSingleQuotes(postalCode.trim().replace(' ', '')) + '%';
+            String sanitizedPostal = '%' + String.escapeSingleQuotes(postalCode.trim()) + '%';
             conditions.add('(MailingPostalCode LIKE :sanitizedPostal)');
         }
 
