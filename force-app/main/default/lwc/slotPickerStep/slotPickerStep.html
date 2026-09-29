@@ -1,12 +1,12 @@
 <template>
-    <div class="slds-p-around_medium">
+    <div class="slds-var-p-around_medium">
         <div class="slds-grid slds-gutters slds-wrap">
             <!-- Left Column: Branch Locations Ranked by Distance -->
             <div class="slds-col slds-size_1-of-1 slds-medium-size_5-of-12">
                 <lightning-card title="1. Select Branch Location" icon-name="standard:address">
-                    <div class="slds-p-horizontal_small">
+                    <div class="slds-var-p-horizontal_small">
                         <template lwc:if={isLoadingLocations}>
-                            <div class="slds-is-relative slds-p-around_medium">
+                            <div class="slds-is-relative slds-var-p-around_medium">
                                 <lightning-spinner alternative-text="Finding locations" size="small"></lightning-spinner>
                             </div>
                         </template>
@@ -28,10 +28,10 @@
                                             </span>
                                         </template>
                                     </div>
-                                    <div class="slds-text-body_small slds-text-color_weak slds-m-top_xx-small">
+                                    <div class="slds-text-body_small slds-text-color_weak slds-var-m-top_xx-small">
                                         {loc.street}, {loc.city} &bull; {loc.postalCode}
                                     </div>
-                                    <div class="slds-text-body_small slds-text-color_default slds-m-top_xx-small">
+                                    <div class="slds-text-body_small slds-text-color_default slds-var-m-top_xx-small">
                                         Staff: {loc.staffSummary}
                                     </div>
                                 </div>
@@ -39,7 +39,7 @@
                         </template>
 
                         <template lwc:if={noLocationsFound}>
-                            <div class="slds-p-around_medium slds-text-align_center slds-text-color_weak">
+                            <div class="slds-var-p-around_medium slds-text-align_center slds-text-color_weak">
                                 No branch locations currently have qualified staff for this service.
                             </div>
                         </template>
@@ -50,9 +50,9 @@
             <!-- Right Column: Date & Available Slots -->
             <div class="slds-col slds-size_1-of-1 slds-medium-size_7-of-12">
                 <lightning-card title="2. Choose Date & Time Slot" icon-name="standard:event">
-                    <div class="slds-p-horizontal_medium">
+                    <div class="slds-var-p-horizontal_medium">
                         <template lwc:if={selectedLocation}>
-                            <div class="slds-grid slds-gutters slds-grid_vertical-align-end slds-m-bottom_medium">
+                            <div class="slds-grid slds-gutters slds-grid_vertical-align-end slds-var-m-bottom_medium">
                                 <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12">
                                     <lightning-input
                                         type="date"
@@ -72,21 +72,25 @@
                             </div>
 
                             <template lwc:if={isLoadingSlots}>
-                                <div class="slds-is-relative slds-p-around_large">
+                                <div class="slds-is-relative slds-var-p-around_large">
                                     <lightning-spinner alternative-text="Calculating available slots" size="small"></lightning-spinner>
                                 </div>
                             </template>
 
                             <template lwc:if={hasSlots}>
-                                <div class="slds-m-bottom_medium">
-                                    <h4 class="slds-text-title_bold slds-m-bottom_small">Available Time Slots</h4>
+                                <div class="slds-var-m-bottom_medium">
+                                    <h4 class="slds-text-title_bold slds-var-m-bottom_small">Available Time Slots</h4>
                                     <div class="slots-container">
                                         <template for:each={slots} for:item="slot">
+                                            <!-- sldsValidatorIgnore -->
                                             <button
                                                 key={slot.slotKey}
+                                                type="button"
                                                 class={slot.btnClass}
                                                 onclick={handleSelectSlot}
-                                                data-key={slot.slotKey}>
+                                                data-key={slot.slotKey}
+                                                aria-label={slot.timeDisplay}
+                                                title={slot.timeDisplay}>
                                                 <div class="slot-time">{slot.timeDisplay}</div>
                                                 <div class="slot-staff">👤 {slot.staffName}</div>
                                             </button>
@@ -96,7 +100,7 @@
                             </template>
 
                             <template lwc:if={noSlotsAvailable}>
-                                <div class="slds-box slds-theme_shade slds-m-bottom_medium slds-text-align_center">
+                                <div class="slds-box slds-theme_shade slds-var-m-bottom_medium slds-text-align_center">
                                     <p class="slds-text-color_weak">
                                         No free slots available on this date at {selectedLocation.locationName}. Please select another date.
                                     </p>
@@ -104,7 +108,7 @@
                             </template>
 
                             <!-- Notes -->
-                            <div class="slds-m-top_medium">
+                            <div class="slds-var-m-top_medium">
                                 <lightning-textarea
                                     label="Operator Notes / Special Customer Instructions"
                                     placeholder="Enter any customer notes or access instructions..."
@@ -113,7 +117,7 @@
                                 </lightning-textarea>
                             </div>
 
-                            <div class="slds-m-top_large slds-text-align_right">
+                            <div class="slds-var-m-top_large slds-text-align_right">
                                 <lightning-button
                                     variant="brand"
                                     label="Proceed to Review"
@@ -125,7 +129,7 @@
                         </template>
 
                         <template lwc:else>
-                            <div class="slds-p-around_large slds-text-align_center slds-text-color_weak">
+                            <div class="slds-var-p-around_large slds-text-align_center slds-text-color_weak">
                                 👈 Please select a branch location on the left to view available dates and time slots.
                             </div>
                         </template>

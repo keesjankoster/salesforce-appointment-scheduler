@@ -1,9 +1,9 @@
 <template>
-    <div class="slds-p-around_medium">
+    <div class="slds-var-p-around_medium">
         <!-- Search Card -->
         <lightning-card title="Search Existing Customer" icon-name="standard:contact">
-            <div class="slds-p-horizontal_medium slds-m-bottom_medium">
-                <div class="slds-grid slds-gutters slds-wrap">
+            <div class="slds-var-p-horizontal_medium slds-var-m-bottom_medium">
+                <div class="slds-grid slds-gutters slds-wrap slds-grid_vertical-align-end">
                     <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12">
                         <lightning-input
                             type="search"
@@ -22,13 +22,13 @@
                             onchange={handlePostalCodeChange}>
                         </lightning-input>
                     </div>
-                    <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-12 slds-align-bottom slds-m-top_x-small">
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-12 slds-var-m-top_x-small">
                         <lightning-button
                             variant="brand"
                             label="Search"
                             icon-name="utility:search"
                             onclick={handleSearch}
-                            class="slds-m-top_medium">
+                            class="slds-var-m-top_medium">
                         </lightning-button>
                     </div>
                 </div>
@@ -36,24 +36,24 @@
 
             <!-- Loading Spinner -->
             <template lwc:if={isLoading}>
-                <div class="slds-is-relative slds-m-vertical_large">
+                <div class="slds-is-relative slds-var-m-vertical_large">
                     <lightning-spinner alternative-text="Searching customers" size="small"></lightning-spinner>
                 </div>
             </template>
 
             <!-- Search Results -->
             <template lwc:if={hasResults}>
-                <div class="slds-p-horizontal_medium slds-m-bottom_medium">
-                    <h3 class="slds-text-heading_small slds-m-bottom_small">Matching Customers ({searchResults.length})</h3>
+                <div class="slds-var-p-horizontal_medium slds-var-m-bottom_medium">
+                    <h3 class="slds-text-heading_small slds-var-m-bottom_small">Matching Customers ({searchResults.length})</h3>
                     <div class="results-grid">
                         <template for:each={searchResults} for:item="cust">
-                            <div key={cust.Id} class="slds-box slds-box_small customer-card slds-m-bottom_small">
+                            <div key={cust.Id} class="slds-box slds-box_small customer-card slds-var-m-bottom_small">
                                 <div class="slds-grid slds-grid_vertical-align-center slds-grid_align-spread">
                                     <div>
                                         <div class="slds-text-heading_small slds-text-color_default font-semibold">
                                             {cust.FirstName} {cust.LastName}
                                         </div>
-                                        <div class="slds-text-body_small slds-text-color_weak slds-m-top_xx-small">
+                                        <div class="slds-text-body_small slds-text-color_weak slds-var-m-top_xx-small">
                                             <span lwc:if={cust.Email}>📧 {cust.Email} &bull; </span>
                                             <span lwc:if={cust.Phone}>📞 {cust.Phone} &bull; </span>
                                             <span lwc:if={cust.MailingPostalCode}>📍 {cust.MailingPostalCode}</span>
@@ -73,20 +73,20 @@
             </template>
 
             <template lwc:if={noResultsFound}>
-                <div class="slds-p-around_medium slds-text-align_center slds-text-color_weak">
+                <div class="slds-var-p-around_medium slds-text-align_center slds-text-color_weak">
                     No existing customers match your search criteria. You can register a new customer below.
                 </div>
             </template>
         </lightning-card>
 
         <!-- New Customer Form Divider -->
-        <div class="slds-text-align_center slds-m-vertical_medium">
+        <div class="slds-text-align_center slds-var-m-vertical_medium">
             <span class="slds-badge slds-theme_default">OR</span>
         </div>
 
         <!-- Quick Registration Card -->
         <lightning-card title="Register New Customer" icon-name="utility:new">
-            <div class="slds-p-horizontal_medium">
+            <div class="slds-var-p-horizontal_medium">
                 <div class="slds-grid slds-gutters slds-wrap">
                     <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12">
                         <lightning-input label="First Name" value={newFirstName} onchange={handleNewFirstNameChange}></lightning-input>
@@ -111,7 +111,7 @@
                     </div>
                 </div>
 
-                <div class="slds-m-top_medium slds-text-align_right">
+                <div class="slds-var-m-top_medium slds-text-align_right">
                     <lightning-button
                         variant="brand"
                         label="Register & Select"

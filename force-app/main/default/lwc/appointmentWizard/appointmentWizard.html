@@ -16,7 +16,7 @@
             </div>
 
             <!-- Top Progress Indicator -->
-            <div class="slds-p-horizontal_large slds-p-top_small slds-p-bottom_medium">
+            <div class="slds-var-p-horizontal_large slds-var-p-top_small slds-var-p-bottom_medium">
                 <lightning-progress-indicator current-step={currentStep} type="path" variant="base">
                     <lightning-progress-step label="1. Customer" value="1"></lightning-progress-step>
                     <lightning-progress-step label="2. Service" value="2"></lightning-progress-step>
@@ -27,21 +27,21 @@
 
             <!-- Context Breadcrumb Bar (If Customer or Service is selected) -->
             <template lwc:if={hasContext}>
-                <div class="slds-p-horizontal_large slds-m-bottom_small">
+                <div class="slds-var-p-horizontal_large slds-var-m-bottom_small">
                     <div class="slds-box slds-box_x-small context-bar slds-grid slds-wrap slds-grid_align-spread slds-grid_vertical-align-center">
                         <div class="slds-grid slds-wrap slds-grid_vertical-align-center">
                             <template lwc:if={selectedCustomer}>
-                                <span class="slds-badge slds-theme_default slds-m-right_small">
+                                <span class="slds-badge slds-theme_default slds-var-m-right_small">
                                     👤 {selectedCustomer.FirstName} {selectedCustomer.LastName} ({selectedCustomer.MailingPostalCode})
                                 </span>
                             </template>
                             <template lwc:if={selectedService}>
-                                <span class="slds-badge slds-theme_default slds-m-right_small">
+                                <span class="slds-badge slds-theme_default slds-var-m-right_small">
                                     🔧 {selectedService.Name} ({selectedService.Duration_Minutes__c} mins)
                                 </span>
                             </template>
                             <template lwc:if={selectedLocation}>
-                                <span class="slds-badge slds-theme_default slds-m-right_small">
+                                <span class="slds-badge slds-theme_default slds-var-m-right_small">
                                     📍 {selectedLocation.locationName}
                                 </span>
                             </template>
