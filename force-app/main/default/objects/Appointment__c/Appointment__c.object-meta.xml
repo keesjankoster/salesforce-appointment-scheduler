@@ -9,5 +9,6 @@
         <type>AutoNumber</type>
     </nameField>
     <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>true</enableActivities>
     <sharingModel>ReadWrite</sharingModel>
 </CustomObject>
