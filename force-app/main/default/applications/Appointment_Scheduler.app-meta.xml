@@ -12,8 +12,8 @@
     <label>Appointment Scheduler</label>
     <navType>Standard</navType>
     <tabs>Appointment_Wizard</tabs>
-    <tabs>standard-Account</tabs>
-    <tabs>standard-Contact</tabs>
+    <tabs>Locations</tabs>
+    <tabs>Customers</tabs>
     <tabs>Service_Type__c</tabs>
     <tabs>Appointment__c</tabs>
     <uiType>Lightning</uiType>

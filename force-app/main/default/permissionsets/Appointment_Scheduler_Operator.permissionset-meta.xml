@@ -137,6 +137,14 @@
         <visibility>Visible</visibility>
     </tabSettings>
     <tabSettings>
+        <tab>Customers</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
+    <tabSettings>
+        <tab>Locations</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
+    <tabSettings>
         <tab>Service_Type__c</tab>
         <visibility>Visible</visibility>
     </tabSettings>
