@@ -12,6 +12,9 @@
     "test:unit:coverage": "sfdx-lwc-jest --coverage",
     "prettier": "prettier --write \"**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,xml,yaml,yml}\"",
     "prettier:verify": "prettier --check \"**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,xml,yaml,yml}\"",
+    "org:setup": "hob scratch new appointment-dev -p Appointment_Scheduler_Operator -s scripts/apex/seed.apex",
+    "org:test": "hob test",
+    "org:clean": "hob hearth -c -p",
     "prepare": "husky || true",
     "precommit": "lint-staged"
   },
