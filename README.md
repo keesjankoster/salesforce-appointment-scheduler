@@ -2,6 +2,8 @@
 
 > A multi-location service appointment booking platform built on the Salesforce platform, engineered to showcase enterprise architecture patterns and developer-first workflows powered by **[Hob: The Salesforce House-Elf](https://github.com/keesjankoster/hob)** (`hob`).
 
+![Salesforce Appointment Scheduler](documentation/SalesforceAppointmentScheduler.jpg)
+
 ---
 
 ## 📖 Documentation & Architecture Series
