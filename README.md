@@ -16,7 +16,7 @@ This repository accompanies a step-by-step technical article series exploring mo
 | **[Part 4](documentation/part4.md)** | **[High-Velocity TDD — Companion Test Scaffolding with Hob](documentation/part4.md)** | Core domain services (`CustomerService`, `LocationService`, `AvailabilityService`, `AppointmentService`), concurrency row-locking, and proximity ranking (`hob create apex --with-test`). |
 | **[Part 5](documentation/part5.md)** | **[Architecture by Default — Separation of Concerns with Hob Triggers](documentation/part5.md)** | Logic-less triggers, automated standard `Task` generation, email notifications, and cancellation lifecycle (`hob create trigger`). |
 | **[Part 6](documentation/part6.md)** | **[Building Modern Lightning UIs Fast — Scaffolded LWCs with Hob](documentation/part6.md)** | Multi-step booking wizard state machine (`appointmentWizard`), child component composition, and Lightning App packaging (`hob create lwc`). |
-| *Part 7* | *One Command to Rule Them All: The Complete Dev Org Setup with Hob* | *(Upcoming)* End-to-end scratch org creation, deployment, and testing (`hob scratch new`, `hob hearth`, `hob scratch purge`). |
+| **[Part 7](documentation/part7.md)** | **[One Command to Rule Them All — The Complete Dev Org Setup with Hob](documentation/part7.md)** | End-to-end scratch org creation, deployment, permission assignment, demo data seeding, test validation, and lifecycle hygiene (`hob scratch new`, `hob hearth`, `hob test`, `hob scratch purge`). |
 
 ---
 
@@ -167,29 +167,55 @@ Scaffolded via `hob create lwc <Name>` implementing the container/subcomponent p
 
 ## 🚀 Quick Start & Developer Guide
 
-### 1. Deploy Metadata
+### Option A: The All-in-One Hob Setup (Recommended)
+
+Kindle a fresh scratch org, deploy all metadata, assign the permission set, seed realistic test data, and launch your browser in a single command:
+
+```bash
+hob scratch new appointment-dev -p Appointment_Scheduler_Operator -s scripts/apex/seed.apex
+```
+
+Verify application test health and code coverage:
+```bash
+hob test
+```
+
+Tidy up the hearth when you are done:
+```bash
+hob hearth -c -p
+# or purge scratch orgs:
+hob scratch purge --expired-only
+```
+
+---
+
+### Option B: Step-by-Step Manual Setup
+
+If you prefer granular step-by-step setup or are deploying into an existing sandbox:
+
+#### 1. Deploy Metadata
 Deploy the metadata to your active scratch org or sandbox:
 ```bash
-hob deploy devhub
+hob deploy
 # or using Salesforce CLI:
 sf project deploy start
 ```
 
-### 2. Assign Permissions
+#### 2. Assign Permissions
 Assign the operator permission set to your user:
 ```bash
 sf org assign permset -n Appointment_Scheduler_Operator
 ```
 
-### 3. Seed Realistic Demo Data
+#### 3. Seed Realistic Demo Data
 Seed demo branch locations, staff, schedules, and services:
 ```bash
-sf apex run --file scripts/apex/seed.apex
-# or using Hob's seed command:
 hob seed --apex scripts/apex/seed.apex
+# or using Salesforce CLI:
+sf apex run --file scripts/apex/seed.apex
 ```
 
-### 4. Open Org in Browser
+#### 4. Open Org in Browser
 ```bash
 hob open
 # or:
